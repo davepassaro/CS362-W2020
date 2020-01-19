@@ -6,7 +6,7 @@ Created on Fri Jan 17'th 2020
 David Passaro
 """
 import testUtility
-import Dominion
+#import Dominion
 import random
 from collections import defaultdict
 
@@ -27,30 +27,30 @@ supply_order = testUtility.GetSupplyOrder()
 #Pick 10 cards from box to be in the supply.
 boxlist = testUtility.GetBoxList(box)
 #changed from origional
-
-supply = testUtility.GetSupply(box)
+random10 = testUtility.GetRandom10(boxlist)
+supply = testUtility.GetSupply(box, random10)
 
 
 #The supply always has these cards ##changed
-testUtility.GetCopperSupply(supply)             
-testUtility.GetSilverSupply(supply)
-testUtility.GetGoldSupply(supply) 
-testUtility.GetEstateSupply(supply) 
-testUtility.GetDuchySupply(supply) 
-testUtility.GetProvinceSupply(supply) 
-testUtility.GetCurseSupply(supply) 
+testUtility.SetCopperSupply(supply, player_names)
+testUtility.SetSilverSupply(supply)
+testUtility.SetGoldSupply(supply)
+testUtility.SetEstateSupply(supply, nV)
+testUtility.SetDuchySupply(supply, nV)
+testUtility.SetProvinceSupply(supply, nV)
+testUtility.SetCurseSupply(supply, nC)
 
 
 #initialize the trash
 trash = testUtility.initTrash()
 
 #Costruct the Player objects
-players = testUtility.initPlayers()
+players = testUtility.initPlayers(player_names)
 
 
 #Play the game
-playGame()
+testUtility.playGame(supply, supply_order,players,trash)
             
 
 #Final score
-finalScore()
+testUtility.finalScore(players)

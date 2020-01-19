@@ -4,7 +4,7 @@ Created on Fri Jan 17'th 2020
 @author: passarod  
 David Passaro
 """
-import testDominion1
+#import testDominion1
 import Dominion
 import random
 from collections import defaultdict
@@ -46,7 +46,7 @@ def GetSupplyOrder():
     6:['Gold','Adventurer'],8:['Province']}
     return supply_order
 def GetPlayerNames(): 
-    player_names = [Dave, Steph, Donna]
+    player_names = ["Annie","*Ben","*Carla"]
     return player_names
 
 def GetCurseCards(player_names):
@@ -63,44 +63,47 @@ def GetBoxList(box):
     boxlist= [k for k in box]
     random.shuffle(boxlist)
     return boxlist
-def GetSupply(box):
+def GetRandom10(boxlist):
+	random10 = boxlist[:10]
+	return random10
+def GetSupply(box, random10):
     supply = defaultdict(list,[(k,box[k]) for k in random10])
     return supply
 
-def SetCopperSupply(supply):
+def SetCopperSupply(supply, player_names):
     supply["Copper"]=[Dominion.Copper()]*(60-len(player_names)*7)
 
-def SetSupply(supply):
+def SetSilverSupply(supply):
     supply["Silver"]=[Dominion.Silver()]*40
 
 def SetGoldSupply(supply):
     supply["Gold"]=[Dominion.Gold()]*30
 
-def SetEstateSupply(supply):
+def SetEstateSupply(supply, nV):
     supply["Estate"]=[Dominion.Estate()]*nV
 
-def SetDuchySupply(supply):
+def SetDuchySupply(supply, nV):
     supply["Duchy"]=[Dominion.Duchy()]*nV
 
-def SetProvinceSupply(supply):
+def SetProvinceSupply(supply, nV):
     supply["Province"]=[Dominion.Province()]*nV
 
-def SetCurseSupply(supply):
+def SetCurseSupply(supply, nC):
     supply["Curse"]=[Dominion.Curse()]*nC
 def initTrash():
     trash = []
     return trash
-def initplayers():
+def initPlayers(player_names):
     players = []
     for name in player_names:
-	if name[0]=="*":
-        players.append(Dominion.ComputerPlayer(name[1:]))
-    elif name[0]=="^":
-        players.append(Dominion.TablePlayer(name[1:]))
-    else:
-        players.append(Dominion.Player(name))
-    return players
-def playGame():
+        if name[0]=="*":
+            players.append(Dominion.ComputerPlayer(name[1:]))
+        elif name[0]=="^":
+            players.append(Dominion.TablePlayer(name[1:]))
+        else:
+            players.append(Dominion.Player(name))
+        return players
+def playGame(supply, supply_order, players,trash):
     turn  = 0
     while not Dominion.gameover(supply):
         turn += 1
@@ -118,7 +121,7 @@ def playGame():
             if not Dominion.gameover(supply):
                 print("\r")
                 player.turn(players,supply,trash)
-def finalScore():
+def finalScore(players):
     dcs=Dominion.cardsummaries(players)
     vp=dcs.loc['VICTORY POINTS']
     vpmax=vp.max()
