@@ -46,10 +46,10 @@ def GetSupplyOrder():
     6:['Gold','Adventurer'],8:['Province']}
     return supply_order
 def GetPlayerNames(): 
-    player_names = ["Annie","*Ben","*Carla"]
+    player_names = ["*Annie","*Ben","*Carla"]
     return player_names
 
-def GetCurseCards(player_names):
+def Get_nV(player_names):
     if len(player_names)>2:
         nV=12
     else:
@@ -121,11 +121,12 @@ def playGame(supply, supply_order, players,trash):
             if not Dominion.gameover(supply):
                 print("\r")
                 player.turn(players,supply,trash)
-def finalScore(players):
+def finalScore(players, winners):
     dcs=Dominion.cardsummaries(players)
     vp=dcs.loc['VICTORY POINTS']
     vpmax=vp.max()
-    winners=[]
+	
+
     for i in vp.index:
         if vp.loc[i]==vpmax:
             winners.append(i)

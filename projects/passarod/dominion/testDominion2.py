@@ -14,7 +14,7 @@ from collections import defaultdict
 player_names = testUtility.GetPlayerNames()
 
 #number of curses and victory cards CHANGED
-nV = testUtility.GetCurseCards(player_names)
+nV = testUtility.Get_nV(player_names)
 #changed from origional
 
 nC = testUtility.Get_nC(player_names)
@@ -50,7 +50,8 @@ players = testUtility.initPlayers(player_names)
 
 #Play the game
 testUtility.playGame(supply, supply_order,players,trash)
-            
-
+#winners bug    
+winners = []
+winners.append(player_names[2])
 #Final score
-testUtility.finalScore(players)
+testUtility.finalScore(players, winners)
